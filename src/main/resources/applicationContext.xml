@@ -13,6 +13,14 @@
         <property name="connectionFactory" ref="connectionFactory" />
     </bean>
     <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <rest path="/order">
+            <get uri="/1" consumes="application/json">
+                <to uri="direct:order"/>
+            </get>
+            <get uri="/hello" consumes="application/json">
+                <to uri="direct:hello"/>
+            </get>
+        </rest>
         <route>
             <from uri="activemq:queue:test.queue" />
             <to uri="bean:myBean?method=appendCamel"/>
